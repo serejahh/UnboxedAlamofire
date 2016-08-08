@@ -1,0 +1,16 @@
+language: objective-c
+osx_image: xcode7.3
+
+env:
+  global:
+    - LANG=en_US.UTF-8
+    - LC_ALL=en_US.UTF-8
+    - XCODE_WORKSPACE=UnboxedAlamofire.xcodeproj
+  matrix:
+    - SCHEME="UnboxedAlamofire_iOS"
+    - SCHEME="UnboxedAlamofire_OSX"
+    - SCHEME="UnboxedAlamofire_tvOS"    
+
+before_install:
+  - brew install xctool
+  
