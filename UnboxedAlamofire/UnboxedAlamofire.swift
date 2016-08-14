@@ -69,9 +69,10 @@ private extension Request {
             
             do {
                 return .Success(try Unbox(json))
-            }
-            catch let unboxError as NSError {
-                return .Failure(unboxError)
+            } catch let unboxError as UnboxError {
+                return .Failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+            } catch let error as NSError {
+                return .Failure(error)
             }
         }
     }
@@ -98,9 +99,10 @@ private extension Request {
             
             do {
                 return .Success(try map(json))
-            }
-            catch let unboxError as NSError {
-                return .Failure(unboxError)
+            } catch let unboxError as UnboxError {
+                return .Failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+            } catch let error as NSError {
+                return .Failure(error)
             }
         }
     }
