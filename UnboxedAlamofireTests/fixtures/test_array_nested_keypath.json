@@ -1,0 +1,22 @@
+{
+    "response": {
+        "wish": [
+            { 
+                "name": "KitKat",
+                "sweetness_level" : 80
+            },
+            { 
+                "name": "Mars",
+                "sweetness_level" : 85
+            },
+            { 
+                "name": "Snickers",
+                "sweetness_level" : 85
+            },
+            { 
+                "name": "Twix",
+                "sweetness_level" : 83
+            }
+        ]
+    }
+}
