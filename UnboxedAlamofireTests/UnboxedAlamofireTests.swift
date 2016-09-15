@@ -15,7 +15,7 @@ class UnboxedAlamofireTests: XCTestCase {
     private let timeout: NSTimeInterval = 5
     
     func test_mapObject() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_object.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_object.json"
         let expectation = expectationWithDescription("\(url)")
 
         Alamofire.request(.GET, url).responseObject { (response: Response<Candy, NSError>) in
@@ -35,7 +35,7 @@ class UnboxedAlamofireTests: XCTestCase {
     }
 
     func test_mapObjectWithKeyPath() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_object_keypath.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_object_keypath.json"
         let expectation = expectationWithDescription("\(url)")
         
         Alamofire.request(.GET, url).responseObject(keyPath: "response") { (response: Response<Candy, NSError>) in
@@ -55,7 +55,7 @@ class UnboxedAlamofireTests: XCTestCase {
     }
     
     func test_mapObjectWithNestedKeyPath() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_object_nested_keypath.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_object_nested_keypath.json"
         let expectation = expectationWithDescription("\(url)")
         
         Alamofire.request(.GET, url).responseObject(keyPath: "response.my") { (response: Response<Candy, NSError>) in
@@ -75,7 +75,7 @@ class UnboxedAlamofireTests: XCTestCase {
     }
     
     func test_mapArray() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_array.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_array.json"
         let expectation = expectationWithDescription("\(url)")
         
         Alamofire.request(.GET, url).responseArray { (response: Response<[Candy], NSError>) in
@@ -94,7 +94,7 @@ class UnboxedAlamofireTests: XCTestCase {
     }
     
     func test_mapArrayWithKeyPath() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_array_keypath.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_array_keypath.json"
         let expectation = expectationWithDescription("\(url)")
         
         Alamofire.request(.GET, url).responseArray(keyPath: "wish") { (response: Response<[Candy], NSError>) in
@@ -113,7 +113,7 @@ class UnboxedAlamofireTests: XCTestCase {
     }
     
     func test_mapArrayWithNestedKeyPath() {
-        let url = "https://dl.dropboxusercontent.com/u/40912339/fixtures/test_array_nested_keypath.json"
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_array_nested_keypath.json"
         let expectation = expectationWithDescription("\(url)")
         
         Alamofire.request(.GET, url).responseArray(keyPath: "response.wish") { (response: Response<[Candy], NSError>) in
