@@ -9,13 +9,15 @@
 import Unbox
 
 struct Candy {
+    
     let name: String
     let sweetnessLevel: Int
 }
 
 extension Candy: Unboxable {
+    
     init(unboxer: Unboxer) {
-        self.name = unboxer.unbox("name")
-        self.sweetnessLevel = unboxer.unbox("sweetness_level")
+        self.name = unboxer.unbox(key: "name")
+        self.sweetnessLevel = unboxer.unbox(key: "sweetness_level")
     }
 }
