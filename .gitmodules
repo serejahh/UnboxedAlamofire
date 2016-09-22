@@ -3,4 +3,4 @@
 	url = https://github.com/JohnSundell/Unbox.git
 [submodule "Carthage/Checkouts/Alamofire"]
 	path = Carthage/Checkouts/Alamofire
-	url = https://github.com/Alamofire/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git

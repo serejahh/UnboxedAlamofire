@@ -12,7 +12,7 @@ import Unbox
 
 // MARK: - Requests
 
-extension Request {
+extension DataRequest {
     
     /**
      Adds a handler to be called once the request has finished.
@@ -24,8 +24,9 @@ extension Request {
      
      - returns: The request.
      */
-    public func responseObject<T: Unboxable>(queue queue: dispatch_queue_t? = nil, keyPath: String? = nil, options: NSJSONReadingOptions = .AllowFragments, completionHandler: Response<T, NSError> -> Void) -> Self {
-        return response(queue: queue, responseSerializer: Request.UnboxObjectSerializer(options, keyPath: keyPath), completionHandler: completionHandler)
+    @discardableResult
+    public func responseObject<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+        return response(queue: queue, responseSerializer: DataRequest.UnboxObjectSerializer(options, keyPath: keyPath), completionHandler: completionHandler)
     }
     
     /**
@@ -38,71 +39,76 @@ extension Request {
      
      - returns: The request.
      */
-    public func responseArray<T: Unboxable>(queue queue: dispatch_queue_t? = nil, keyPath: String? = nil, options: NSJSONReadingOptions = .AllowFragments, completionHandler: Response<[T], NSError> -> Void) -> Self {
-        return response(queue: queue, responseSerializer: Request.UnboxArraySerializer(options, keyPath: keyPath), completionHandler: completionHandler)
+    @discardableResult
+    public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
+        return response(queue: queue, responseSerializer: DataRequest.UnboxArraySerializer(options, keyPath: keyPath), completionHandler: completionHandler)
     }
+    
+//(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+//        return response(queue: queue, responseSerializer: DataRequest.ObjectMapperSerializer(keyPath, mapToObject: object, context: context), completionHandler: completionHandler)
+//    }
 }
 
 // MARK: - Serializers
 
 private extension Request {
     
-    static func UnboxObjectSerializer<T: Unboxable>(options: NSJSONReadingOptions, keyPath: String?) -> ResponseSerializer<T, NSError>  {
-        return ResponseSerializer { request, response, data, error in
+    static func UnboxObjectSerializer<T: Unboxable>(_ options: JSONSerialization.ReadingOptions, keyPath: String?) -> DataResponseSerializer<T>  {
+        return DataResponseSerializer { request, response, data, error in
             if let error = error {
-                return .Failure(error)
+                return .failure(error)
             }
             
-            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
-            let jsonCandidate: AnyObject?
-            if let keyPath = keyPath where !keyPath.isEmpty {
-                jsonCandidate = result.value?.valueForKeyPath(keyPath)
+            let jsonCandidate: Any?
+            if let keyPath = keyPath , !keyPath.isEmpty {
+                jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
             } else {
                 jsonCandidate = result.value
             }
             
             guard let json = jsonCandidate as? UnboxableDictionary else {
-                return .Failure(UnboxError.InvalidData as NSError)
+                return .failure(UnboxError.InvalidData as NSError)
             }
             
             do {
-                return .Success(try Unbox(json))
+                return .success(try Unbox(dictionary: json))
             } catch let unboxError as UnboxError {
-                return .Failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+                return .failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
             } catch let error as NSError {
-                return .Failure(error)
+                return .failure(error)
             }
         }
     }
     
-    static func UnboxArraySerializer<T: Unboxable>(options: NSJSONReadingOptions, keyPath: String?) -> ResponseSerializer<[T], NSError> {
-        return ResponseSerializer { request, response, data, error in
+    static func UnboxArraySerializer<T: Unboxable>(_ options: JSONSerialization.ReadingOptions, keyPath: String?) -> DataResponseSerializer<[T]> {
+        return DataResponseSerializer { request, response, data, error in
             if let error = error {
-                return .Failure(error)
+                return .failure(error)
             }
 
-            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
-            let jsonCandidate: AnyObject?
-            if let keyPath = keyPath where !keyPath.isEmpty {
-                jsonCandidate = result.value?.valueForKeyPath(keyPath)
+            let jsonCandidate: Any?
+            if let keyPath = keyPath , !keyPath.isEmpty {
+                jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
             } else {
                 jsonCandidate = result.value
             }
             
             guard let json = jsonCandidate as? [UnboxableDictionary] else {
-                return .Failure(UnboxError.InvalidData as NSError)
+                return .failure(UnboxError.InvalidData as NSError)
             }
             
             do {
-                return .Success(try map(json))
+                return .success(try map(json))
             } catch let unboxError as UnboxError {
-                return .Failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+                return .failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
             } catch let error as NSError {
-                return .Failure(error)
+                return .failure(error)
             }
         }
     }
@@ -110,10 +116,10 @@ private extension Request {
 
 // MARK: - Helpers
 
-private func map<T: Unboxable>(objects: [UnboxableDictionary]) throws -> [T] {
+private func map<T: Unboxable>(_ objects: [UnboxableDictionary]) throws -> [T] {
     
-    return try objects.reduce([T](), combine: { container, rawValue in
-        let value = try Unbox(rawValue) as T
+    return try objects.reduce([T](), { container, rawValue in
+        let value = try Unbox(dictionary: rawValue) as T
         return container + [value]
     })
 }
