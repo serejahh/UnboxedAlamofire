@@ -15,6 +15,8 @@
 - [x] Mapping response to array of objects
 - [x] Keypaths
 - [x] Nested keypaths
+- [x] For Swift 2.x use v. `1.x` and [swift2](https://github.com/serejahh/UnboxedAlamofire/tree/swift2) branch
+- [x] For Swift 3.x use v. `2.x`
 
 ## Usage
 
@@ -23,7 +25,7 @@ Objects you request have to conform [Unboxable](https://github.com/JohnSundell/U
 ### Get an object
 
 ``` swift
-Alamofire.request(.GET, url).responseObject { (response: Response<Candy, NSError>) in
+Alamofire.request(url, method: .get).responseObject { (response: DataResponse<Candy>) in
 	let candy = response.result.value
 }
 ```
@@ -31,7 +33,7 @@ Alamofire.request(.GET, url).responseObject { (response: Response<Candy, NSError
 ### Get an array
 
 ``` swift
-Alamofire.request(.GET, url).responseArray { (response: Response<[Candy], NSError>) in
+Alamofire.request(url, method: .get).responseArray { (response: DataResponse<[Candy]>) in
 	let candies = response.result.value
 }
 ```
@@ -41,7 +43,7 @@ Alamofire.request(.GET, url).responseArray { (response: Response<[Candy], NSErro
 Also you can specify a keypath in both requests:
 
 ``` swift
-Alamofire.request(.GET, url).responseObject(keyPath: "response") { (response: Response<Candy, NSError>) in
+Alamofire.request(url, method: .get).responseObject(keyPath: "response") { (response: DataResponse<Candy>) in
 	let candy = response.result.value
 }
 ```
@@ -51,11 +53,11 @@ Alamofire.request(.GET, url).responseObject(keyPath: "response") { (response: Re
 ### [CocoaPods](https://cocoapods.org/)
 
 ```
-pod 'UnboxedAlamofire', '~> 1.0'
+pod 'UnboxedAlamofire', '~> 2.0'
 ```
 
 ### [Carthage](https://github.com/Carthage/Carthage)
 
 ```
-github "serejahh/UnboxedAlamofire" ~> 1.0
+github "serejahh/UnboxedAlamofire" ~> 2.0
 ```
