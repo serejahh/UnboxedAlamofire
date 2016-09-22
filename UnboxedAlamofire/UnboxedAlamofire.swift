@@ -19,7 +19,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed.
-     - parameter options: The JSON serialization reading options. `.AllowFragments` by default.
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
      - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by Unbox.
      
      - returns: The request.
@@ -34,7 +34,7 @@ extension DataRequest {
      
      - parameter queue: The queue on which the completion handler is dispatched.
      - parameter keyPath: The key path where object mapping should be performed.
-     - parameter options: The JSON serialization reading options. `.AllowFragments` by default.
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
      - parameter completionHandler: A closure to be executed once the request has finished and the data has been mapped by Unbox.
      
      - returns: The request.
@@ -43,10 +43,6 @@ extension DataRequest {
     public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
         return response(queue: queue, responseSerializer: DataRequest.UnboxArraySerializer(options, keyPath: keyPath), completionHandler: completionHandler)
     }
-    
-//(queue: DispatchQueue? = nil, keyPath: String? = nil, mapToObject object: T? = nil, context: MapContext? = nil, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-//        return response(queue: queue, responseSerializer: DataRequest.ObjectMapperSerializer(keyPath, mapToObject: object, context: context), completionHandler: completionHandler)
-//    }
 }
 
 // MARK: - Serializers
