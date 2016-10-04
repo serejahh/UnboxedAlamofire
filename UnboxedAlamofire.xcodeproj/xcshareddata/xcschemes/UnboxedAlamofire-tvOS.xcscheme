@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C5CDBA421D50A5F000992A82"
-               BuildableName = "UnboxedAlamofire_tvOS.framework"
+               BuildableName = "UnboxedAlamofire.framework"
                BlueprintName = "UnboxedAlamofire_tvOS"
                ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5CDBA421D50A5F000992A82"
-            BuildableName = "UnboxedAlamofire_tvOS.framework"
+            BuildableName = "UnboxedAlamofire.framework"
             BlueprintName = "UnboxedAlamofire_tvOS"
             ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C5CDBA421D50A5F000992A82"
-            BuildableName = "UnboxedAlamofire_tvOS.framework"
+            BuildableName = "UnboxedAlamofire.framework"
             BlueprintName = "UnboxedAlamofire_tvOS"
             ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
          </BuildableReference>
