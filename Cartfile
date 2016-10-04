@@ -1,2 +1,2 @@
 github "Alamofire/Alamofire" ~> 4.0
-github "JohnSundell/Unbox" "swift3"
+github "JohnSundell/Unbox" ~> 2.0

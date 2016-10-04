@@ -66,11 +66,11 @@ private extension Request {
             }
             
             guard let json = jsonCandidate as? UnboxableDictionary else {
-                return .failure(UnboxError.InvalidData as NSError)
+                return .failure(UnboxError.invalidData as NSError)
             }
             
             do {
-                return .success(try Unbox(dictionary: json))
+                return .success(try unbox(dictionary: json))
             } catch let unboxError as UnboxError {
                 return .failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
             } catch let error as NSError {
@@ -96,7 +96,7 @@ private extension Request {
             }
             
             guard let json = jsonCandidate as? [UnboxableDictionary] else {
-                return .failure(UnboxError.InvalidData as NSError)
+                return .failure(UnboxError.invalidData as NSError)
             }
             
             do {
@@ -115,7 +115,7 @@ private extension Request {
 private func map<T: Unboxable>(_ objects: [UnboxableDictionary]) throws -> [T] {
     
     return try objects.reduce([T](), { container, rawValue in
-        let value = try Unbox(dictionary: rawValue) as T
+        let value = try unbox(dictionary: rawValue) as T
         return container + [value]
     })
 }
