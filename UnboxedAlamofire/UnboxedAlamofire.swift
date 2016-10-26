@@ -66,13 +66,13 @@ private extension Request {
             }
             
             guard let json = jsonCandidate as? UnboxableDictionary else {
-                return .failure(UnboxError.invalidData as NSError)
+                return .failure(UnboxedAlamofireError(description: "Invalid data."))
             }
             
             do {
                 return .success(try unbox(dictionary: json))
             } catch let unboxError as UnboxError {
-                return .failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+                return .failure(UnboxedAlamofireError(description: unboxError.description))
             } catch let error as NSError {
                 return .failure(error)
             }
@@ -96,13 +96,13 @@ private extension Request {
             }
             
             guard let json = jsonCandidate as? [UnboxableDictionary] else {
-                return .failure(UnboxError.invalidData as NSError)
+                return .failure(UnboxedAlamofireError(description: "Invalid data."))
             }
             
             do {
                 return .success(try map(json))
             } catch let unboxError as UnboxError {
-                return .failure(NSError(domain: "UnboxError", code: unboxError._code, userInfo: [NSLocalizedDescriptionKey: unboxError.description]))
+                return .failure(UnboxedAlamofireError(description: unboxError.description))
             } catch let error as NSError {
                 return .failure(error)
             }
@@ -112,10 +112,15 @@ private extension Request {
 
 // MARK: - Helpers
 
+public struct UnboxedAlamofireError: Error, CustomStringConvertible {
+    
+    public let description: String
+}
+
 private func map<T: Unboxable>(_ objects: [UnboxableDictionary]) throws -> [T] {
     
-    return try objects.reduce([T](), { container, rawValue in
+    return try objects.reduce([T]()) { container, rawValue in
         let value = try unbox(dictionary: rawValue) as T
         return container + [value]
-    })
+    }
 }
