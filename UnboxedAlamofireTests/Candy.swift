@@ -14,10 +14,10 @@ struct Candy {
     let sweetnessLevel: Int
 }
 
-extension Candy: Unboxable {
+extension Candy {
     
-    init(unboxer: Unboxer) {
-        self.name = unboxer.unbox(key: "name")
-        self.sweetnessLevel = unboxer.unbox(key: "sweetness_level")
+    init(unboxer: Unboxer) throws {
+        self.name = try unboxer.unbox(key: "name")
+        self.sweetnessLevel = try unboxer.unbox(key: "sweetness_level")
     }
 }
