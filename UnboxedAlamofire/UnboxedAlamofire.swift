@@ -26,7 +26,7 @@ extension DataRequest {
      */
     @discardableResult
     public func responseObject<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.serializeUnboxResponseObject(options: options, keyPath: keyPath), completionHandler: completionHandler)
+        return response(queue: queue, responseSerializer: DataRequest.unboxObjectResponseSerializer(options: options, keyPath: keyPath), completionHandler: completionHandler)
     }
     
     /**
@@ -41,7 +41,7 @@ extension DataRequest {
      */
     @discardableResult
     public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.serializeUnboxResponseArray(options: options, keyPath: keyPath), completionHandler: completionHandler)
+        return response(queue: queue, responseSerializer: DataRequest.unboxArrayResponseSerializer(options: options, keyPath: keyPath), completionHandler: completionHandler)
     }
 }
 
