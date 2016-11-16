@@ -57,7 +57,7 @@ extension DataRequest {
      */
     public static func unboxObjectResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, keyPath:String?) -> DataResponseSerializer<T> {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeUnboxResponseObject(options: options, keyPath: keyPath, response: response, data: data, error: error)
+            return Request.serializeUnboxObjectResponse(options: options, keyPath: keyPath, response: response, data: data, error: error)
         }
     }
     
@@ -71,7 +71,7 @@ extension DataRequest {
      */
     public static func unboxArrayResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, keyPath:String?) -> DataResponseSerializer<[T]> {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeUnboxResponseArray(options: options, keyPath: keyPath, response: response, data: data, error: error)
+            return Request.serializeUnboxArrayResponse(options: options, keyPath: keyPath, response: response, data: data, error: error)
         }
     }
 }
@@ -89,7 +89,7 @@ extension Request {
      
      - returns: The result data type.
      */
-    public static func serializeUnboxResponseObject<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<T> {
+    public static func serializeUnboxObjectResponse<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<T> {
         if let error = error {
             return .failure(error)
         }
@@ -128,7 +128,7 @@ extension Request {
      
      - returns: The result data type.
      */
-    public static func serializeUnboxResponseArray<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<[T]> {
+    public static func serializeUnboxArrayResponse<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<[T]> {
         if let error = error {
             return .failure(error)
         }
