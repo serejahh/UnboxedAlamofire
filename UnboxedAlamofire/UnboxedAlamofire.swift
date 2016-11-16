@@ -26,7 +26,7 @@ extension DataRequest {
      */
     @discardableResult
     public func responseObject<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.UnboxObjectSerializer(options, keyPath: keyPath), completionHandler: completionHandler)
+        return response(queue: queue, responseSerializer: DataRequest.serializeUnboxResponseObject(options: options, keyPath: keyPath), completionHandler: completionHandler)
     }
     
     /**
@@ -41,71 +41,118 @@ extension DataRequest {
      */
     @discardableResult
     public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.UnboxArraySerializer(options, keyPath: keyPath), completionHandler: completionHandler)
+        return response(queue: queue, responseSerializer: DataRequest.serializeUnboxResponseArray(options: options, keyPath: keyPath), completionHandler: completionHandler)
     }
 }
 
 // MARK: - Serializers
-
-private extension Request {
-    
-    static func UnboxObjectSerializer<T: Unboxable>(_ options: JSONSerialization.ReadingOptions, keyPath: String?) -> DataResponseSerializer<T>  {
-        return DataResponseSerializer { request, response, data, error in
-            if let error = error {
-                return .failure(error)
-            }
-            
-            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
-            let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
-            
-            let jsonCandidate: Any?
-            if let keyPath = keyPath , !keyPath.isEmpty {
-                jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
-            } else {
-                jsonCandidate = result.value
-            }
-            
-            guard let json = jsonCandidate as? UnboxableDictionary else {
-                return .failure(UnboxedAlamofireError(description: "Invalid data."))
-            }
-            
-            do {
-                return .success(try unbox(dictionary: json))
-            } catch let unboxError as UnboxError {
-                return .failure(UnboxedAlamofireError(description: unboxError.description))
-            } catch let error as NSError {
-                return .failure(error)
-            }
+extension DataRequest {
+    /**
+     Creates a response serializer that returns an object parsed using Unbox of the given result type constructed from the response data
+     
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
+     - parameter keyPath: The key path where object mapping should be performed.
+     
+     - returns: An Unbox object response serializer.
+     */
+    public static func unboxObjectResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, keyPath:String?) -> DataResponseSerializer<T> {
+        return DataResponseSerializer { _, response, data, error in
+            return Request.serializeUnboxResponseObject(options: options, keyPath: keyPath, response: response, data: data, error: error)
         }
     }
     
-    static func UnboxArraySerializer<T: Unboxable>(_ options: JSONSerialization.ReadingOptions, keyPath: String?) -> DataResponseSerializer<[T]> {
-        return DataResponseSerializer { request, response, data, error in
-            if let error = error {
-                return .failure(error)
-            }
+    /**
+     Creates a response serializer that returns an arry of objects parsed using Unbox of the given result type constructed from the response data
+     
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
+     - parameter keyPath: The key path where object mapping should be performed.
+     
+     - returns: An Unbox object response serializer.
+     */
+    public static func unboxArrayResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, keyPath:String?) -> DataResponseSerializer<[T]> {
+        return DataResponseSerializer { _, response, data, error in
+            return Request.serializeUnboxResponseArray(options: options, keyPath: keyPath, response: response, data: data, error: error)
+        }
+    }
+}
 
-            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
-            let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
-            
-            let jsonCandidate: Any?
-            if let keyPath = keyPath , !keyPath.isEmpty {
-                jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
-            } else {
-                jsonCandidate = result.value
-            }
-            
-            guard let json = jsonCandidate as? [UnboxableDictionary] else {
-                return .failure(UnboxedAlamofireError(description: "Invalid data."))
-            }
-            
-            do {
-                return .success(try map(json))
-            } catch let unboxError as UnboxError {
-                return .failure(UnboxedAlamofireError(description: unboxError.description))
-            } catch let error as NSError {
-                return .failure(error)
-            }
+extension Request {
+    
+    /**
+     Returns an object parsed using Unbox contained in a result type constructed from the response data
+     
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
+     - parameter keyPath: The key path where object mapping should be performed.
+     - parameter response: The response from the server.
+     - parameter data: The data returned from the server.
+     - parameter error: The error already encountered if it exists.
+     
+     - returns: The result data type.
+     */
+    public static func serializeUnboxResponseObject<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<T> {
+        if let error = error {
+            return .failure(error)
+        }
+        
+        let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
+        let result = JSONResponseSerializer.serializeResponse(nil, response, data, error)
+        
+        let jsonCandidate: Any?
+        if let keyPath = keyPath , !keyPath.isEmpty {
+            jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
+        } else {
+            jsonCandidate = result.value
+        }
+        
+        guard let json = jsonCandidate as? UnboxableDictionary else {
+            return .failure(UnboxedAlamofireError(description: "Invalid data."))
+        }
+        
+        do {
+            return .success(try unbox(dictionary: json))
+        } catch let unboxError as UnboxError {
+            return .failure(UnboxedAlamofireError(description: unboxError.description))
+        } catch let error as NSError {
+            return .failure(error)
+        }
+    }
+    
+    /**
+     Returns an arry of objects parsed using Unbox contained in a result type constructed from the response data
+     
+     - parameter options: The JSON serialization reading options. `.allowFragments` by default.
+     - parameter keyPath: The key path where object mapping should be performed.
+     - parameter response: The response from the server.
+     - parameter data: The data returned from the server.
+     - parameter error: The error already encountered if it exists.
+     
+     - returns: The result data type.
+     */
+    public static func serializeUnboxResponseArray<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<[T]> {
+        if let error = error {
+            return .failure(error)
+        }
+        
+        let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
+        let result = JSONResponseSerializer.serializeResponse(nil, response, data, error)
+        
+        let jsonCandidate: Any?
+        if let keyPath = keyPath , !keyPath.isEmpty {
+            jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
+        } else {
+            jsonCandidate = result.value
+        }
+        
+        guard let json = jsonCandidate as? [UnboxableDictionary] else {
+            return .failure(UnboxedAlamofireError(description: "Invalid data."))
+        }
+        
+        do {
+            return .success(try map(json))
+        } catch let unboxError as UnboxError {
+            return .failure(UnboxedAlamofireError(description: unboxError.description))
+        } catch let error as NSError {
+            return .failure(error)
         }
     }
 }
