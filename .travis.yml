@@ -9,7 +9,10 @@ env:
   matrix:
     - SCHEME="UnboxedAlamofire-iOS"
     - SCHEME="UnboxedAlamofire-OSX"
-    - SCHEME="UnboxedAlamofire-tvOS"    
+    - SCHEME="UnboxedAlamofire-tvOS"
+
+before_install:
+  - git submodule update --recursive --remote    
   
 script:
   - xcodebuild -project "$XCODE_PROJECT" -scheme "$SCHEME" -configuration Debug clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
