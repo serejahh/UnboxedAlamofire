@@ -7,9 +7,9 @@ env:
     - LC_ALL=en_US.UTF-8
     - XCODE_PROJECT=UnboxedAlamofire.xcodeproj
   matrix:
-    - SCHEME="UnboxedAlamofire_iOS"
-    - SCHEME="UnboxedAlamofire_OSX"
-    - SCHEME="UnboxedAlamofire_tvOS"    
+    - SCHEME="UnboxedAlamofire-iOS"
+    - SCHEME="UnboxedAlamofire-OSX"
+    - SCHEME="UnboxedAlamofire-tvOS"    
   
 script:
   - xcodebuild -project "$XCODE_PROJECT" -scheme "$SCHEME" -configuration Debug clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
