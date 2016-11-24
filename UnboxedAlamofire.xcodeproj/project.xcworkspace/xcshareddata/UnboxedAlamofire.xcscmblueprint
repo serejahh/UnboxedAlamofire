@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7EE4AE95731301002B78E7D65BBDD549C0059031",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7EE4AE95731301002B78E7D65BBDD549C0059031" : 9223372036854775807,
+    "7AF96DB6EA6158C0309065EFFC712F3F9D7E1CC3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0131FC97-FDC5-41D7-A16B-BA24E4556784",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7EE4AE95731301002B78E7D65BBDD549C0059031" : "UnboxedAlamofire\/",
+    "7AF96DB6EA6158C0309065EFFC712F3F9D7E1CC3" : "UnboxedAlamofire\/Carthage\/Checkouts\/Unbox\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "UnboxedAlamofire",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "UnboxedAlamofire.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/JohnSundell\/Unbox.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7AF96DB6EA6158C0309065EFFC712F3F9D7E1CC3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/serejahh\/UnboxedAlamofire.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7EE4AE95731301002B78E7D65BBDD549C0059031"
+    }
+  ]
+}
