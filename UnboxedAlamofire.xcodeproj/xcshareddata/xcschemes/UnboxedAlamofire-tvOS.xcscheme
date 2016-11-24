@@ -26,9 +26,29 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5CDBA631D50A62600992A82"
+               BuildableName = "UnboxedAlamofire_tvOS_Tests.xctest"
+               BlueprintName = "UnboxedAlamofire_tvOS_Tests"
+               ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C5CDBA421D50A5F000992A82"
+            BuildableName = "UnboxedAlamofire.framework"
+            BlueprintName = "UnboxedAlamofire_tvOS"
+            ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
