@@ -13,12 +13,12 @@
 		C58251E01D4FC076009DC108 /* Candy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58251DF1D4FC076009DC108 /* Candy.swift */; };
 		C58A67681DEB389200C10DCF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C581210E1DEB30280084F327 /* Alamofire.framework */; };
 		C58A67691DEB389200C10DCF /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121261DEB302E0084F327 /* Unbox.framework */; };
-		C58A676A1DEB38A500C10DCF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121121DEB30280084F327 /* Alamofire.framework */; };
-		C58A676B1DEB38A500C10DCF /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121281DEB302E0084F327 /* Unbox.framework */; };
 		C58A676C1DEB38B400C10DCF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121161DEB30280084F327 /* Alamofire.framework */; };
 		C58A676D1DEB38B400C10DCF /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C581212C1DEB302E0084F327 /* Unbox.framework */; };
 		C58A676E1DEB38BF00C10DCF /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C581211A1DEB30280084F327 /* Alamofire.framework */; };
 		C58A676F1DEB38BF00C10DCF /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C581212A1DEB302E0084F327 /* Unbox.framework */; };
+		C5BF74361DEB40BB002E2485 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121121DEB30280084F327 /* Alamofire.framework */; };
+		C5BF74371DEB40BB002E2485 /* Unbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C58121281DEB302E0084F327 /* Unbox.framework */; };
 		C5CDBA251D50A5B800992A82 /* UnboxedAlamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C52A5D341D4F699100AB86C6 /* UnboxedAlamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5CDBA281D50A5E000992A82 /* UnboxedAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58251DD1D4FC06F009DC108 /* UnboxedAlamofire.swift */; };
 		C5CDBA2D1D50A5E000992A82 /* UnboxedAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C52A5D371D4F699100AB86C6 /* UnboxedAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -236,8 +236,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C58A676A1DEB38A500C10DCF /* Alamofire.framework in Frameworks */,
-				C58A676B1DEB38A500C10DCF /* Unbox.framework in Frameworks */,
+				C5BF74361DEB40BB002E2485 /* Alamofire.framework in Frameworks */,
+				C5BF74371DEB40BB002E2485 /* Unbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
