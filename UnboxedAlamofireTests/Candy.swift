@@ -14,7 +14,7 @@ struct Candy {
     let sweetnessLevel: Int
 }
 
-extension Candy {
+extension Candy: Unboxable {
     
     init(unboxer: Unboxer) throws {
         self.name = try unboxer.unbox(key: "name")
