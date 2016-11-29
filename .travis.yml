@@ -12,3 +12,6 @@ before_install:
   
 script:
   - xcodebuild clean test -workspace "$XCODE_WORKSPACE" -scheme UnboxedAlamofire-iOS -destination "platform=iOS Simulator,name=iPhone 6" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+  - xcodebuild clean test -workspace "$XCODE_WORKSPACE" -scheme UnboxedAlamofire-macOS -destination "arch=x86_64" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+  - xcodebuild clean test -workspace "$XCODE_WORKSPACE" -scheme UnboxedAlamofire-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO    
+  - xcodebuild clean build -workspace "$XCODE_WORKSPACE" -scheme UnboxedAlamofire-watchOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
