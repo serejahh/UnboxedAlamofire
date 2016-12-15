@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "UnboxedAlamofire"
-  s.version = "2.0.1"
+  s.version = "2.0.2"
   s.license = { :type => "MIT", :file => "LICENSE" }
   s.summary = "Alamofire + Unbox: the easiest way to download and decode JSON into swift objects."
   s.homepage = "https://github.com/serejahh/UnboxedAlamofire"
