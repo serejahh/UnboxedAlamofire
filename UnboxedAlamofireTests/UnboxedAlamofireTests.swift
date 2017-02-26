@@ -54,6 +54,26 @@ class UnboxedAlamofireTests: XCTestCase {
         }
     }
     
+    func test_mapObjectWithKeyPathAtArrayIndex() {
+        let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_array_keypath.json"
+        let expectation = self.expectation(description: "\(url)")
+        
+        Alamofire.request(url, method: .get).responseObject(keyPath: "wish.0") { (response: DataResponse<Candy>) in
+            expectation.fulfill()
+            
+            let candy = response.result.value
+            
+            XCTAssertNotNil(candy, "Response shouldn't be nil")
+            XCTAssertNil(response.result.error)
+            XCTAssertEqual(candy?.name, "KitKat")
+            XCTAssertEqual(candy?.sweetnessLevel, 80)
+        }
+        
+        waitForExpectations(timeout: timeout) { error in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
     func test_mapObjectWithNestedKeyPath() {
         let url = "https://raw.githubusercontent.com/serejahh/UnboxedAlamofire/890674cdfdcf2424f2c45ff5f4af455ccfaf7617/UnboxedAlamofireTests/fixtures/test_object_nested_keypath.json"
         let expectation = self.expectation(description: "\(url)")
