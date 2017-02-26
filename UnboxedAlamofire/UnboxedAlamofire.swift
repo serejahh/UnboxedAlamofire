@@ -97,19 +97,16 @@ extension Request {
         let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
         let result = JSONResponseSerializer.serializeResponse(nil, response, data, error)
         
-        let jsonCandidate: Any?
-        if let keyPath = keyPath , !keyPath.isEmpty {
-            jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
-        } else {
-            jsonCandidate = result.value
-        }
-        
-        guard let json = jsonCandidate as? UnboxableDictionary else {
+        guard let json = result.value as? UnboxableDictionary else {
             return .failure(UnboxedAlamofireError(description: "Invalid data."))
         }
         
         do {
-            return .success(try unbox(dictionary: json))
+            if let keyPath = keyPath {
+                return .success(try unbox(dictionary: json, atKeyPath: keyPath))
+            } else {
+                return .success(try unbox(dictionary: json))
+            }
         } catch let unboxError as UnboxError {
             return .failure(UnboxedAlamofireError(description: unboxError.description))
         } catch let error as NSError {
@@ -136,19 +133,14 @@ extension Request {
         let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
         let result = JSONResponseSerializer.serializeResponse(nil, response, data, error)
         
-        let jsonCandidate: Any?
-        if let keyPath = keyPath , !keyPath.isEmpty {
-            jsonCandidate = (result.value as AnyObject?)?.value(forKeyPath: keyPath)
-        } else {
-            jsonCandidate = result.value
-        }
-        
-        guard let json = jsonCandidate as? [UnboxableDictionary] else {
-            return .failure(UnboxedAlamofireError(description: "Invalid data."))
-        }
-        
         do {
-            return .success(try map(json))
+            if let json = result.value as? UnboxableDictionary, let keyPath = keyPath {
+                return .success(try unbox(dictionary: json, atKeyPath: keyPath))
+            } else if let json = result.value as? [UnboxableDictionary] {
+                return .success(try unbox(dictionaries: json))
+            } else {
+                return .failure(UnboxedAlamofireError(description: "Invalid data."))
+            }
         } catch let unboxError as UnboxError {
             return .failure(UnboxedAlamofireError(description: unboxError.description))
         } catch let error as NSError {
@@ -162,12 +154,4 @@ extension Request {
 public struct UnboxedAlamofireError: Error, CustomStringConvertible {
     
     public let description: String
-}
-
-private func map<T: Unboxable>(_ objects: [UnboxableDictionary]) throws -> [T] {
-    
-    return try objects.reduce([T]()) { container, rawValue in
-        let value = try unbox(dictionary: rawValue) as T
-        return container + [value]
-    }
 }
