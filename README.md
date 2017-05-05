@@ -26,7 +26,13 @@ Objects you request have to conform [Unboxable](https://github.com/JohnSundell/U
 
 ``` swift
 Alamofire.request(url, method: .get).responseObject { (response: DataResponse<Candy>) in
-	let candy = response.result.value
+    // handle response
+    let candy = response.result.value
+    
+    // handle error
+    if let error = response.result.error as? UnboxedAlamofireError {
+        print("error: \(error.description)")
+    }
 }
 ```
 
@@ -34,7 +40,13 @@ Alamofire.request(url, method: .get).responseObject { (response: DataResponse<Ca
 
 ``` swift
 Alamofire.request(url, method: .get).responseArray { (response: DataResponse<[Candy]>) in
-	let candies = response.result.value
+    // handle response
+    let candies = response.result.value
+    
+    // handle error
+    if let error = response.result.error as? UnboxedAlamofireError {
+        print("error: \(error.description)")
+    }
 }
 ```
 
@@ -44,7 +56,13 @@ Also you can specify a keypath in both requests:
 
 ``` swift
 Alamofire.request(url, method: .get).responseObject(keyPath: "response") { (response: DataResponse<Candy>) in
-	let candy = response.result.value
+    // handle response
+    let candy = response.result.value
+    
+    // handle error
+    if let error = response.result.error as? UnboxedAlamofireError {
+        print("error: \(error.description)")
+    }
 }
 ```
 
