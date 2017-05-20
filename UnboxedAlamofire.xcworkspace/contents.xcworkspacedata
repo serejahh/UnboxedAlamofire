@@ -4,10 +4,4 @@
    <FileRef
       location = "group:UnboxedAlamofire.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Alamofire/Alamofire.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Carthage/Checkouts/Unbox/Unbox.xcodeproj">
-   </FileRef>
 </Workspace>

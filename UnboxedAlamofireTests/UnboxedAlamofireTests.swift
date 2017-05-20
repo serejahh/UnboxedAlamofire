@@ -30,7 +30,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
 
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
 
@@ -50,7 +50,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
     
@@ -70,7 +70,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
     
@@ -89,7 +89,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
     
@@ -108,7 +108,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
     
@@ -127,7 +127,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, "\(String(describing: error))")
         }
     }
 }
