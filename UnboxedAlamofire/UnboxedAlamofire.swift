@@ -40,8 +40,8 @@ extension DataRequest {
      - returns: The request.
      */
     @discardableResult
-    public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.unboxArrayResponseSerializer(options: options, keyPath: keyPath), completionHandler: completionHandler)
+    public func responseArray<T: Unboxable>(queue: DispatchQueue? = nil, keyPath: String? = nil, options: JSONSerialization.ReadingOptions = .allowFragments, allowInvalidElements: Bool = false, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
+        return response(queue: queue, responseSerializer: DataRequest.unboxArrayResponseSerializer(options: options, allowInvalidElements: allowInvalidElements, keyPath: keyPath), completionHandler: completionHandler)
     }
 }
 
@@ -69,9 +69,9 @@ extension DataRequest {
      
      - returns: An Unbox object response serializer.
      */
-    public static func unboxArrayResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, keyPath:String?) -> DataResponseSerializer<[T]> {
+    public static func unboxArrayResponseSerializer<T: Unboxable>(options: JSONSerialization.ReadingOptions = .allowFragments, allowInvalidElements: Bool, keyPath:String?) -> DataResponseSerializer<[T]> {
         return DataResponseSerializer { _, response, data, error in
-            return Request.serializeUnboxArrayResponse(options: options, keyPath: keyPath, response: response, data: data, error: error)
+            return Request.serializeUnboxArrayResponse(options: options, keyPath: keyPath, response: response, data: data, allowInvalidElements: allowInvalidElements, error: error)
         }
     }
 }
@@ -125,7 +125,7 @@ extension Request {
      
      - returns: The result data type.
      */
-    public static func serializeUnboxArrayResponse<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, error: Error?) -> Result<[T]> {
+    public static func serializeUnboxArrayResponse<T: Unboxable>(options: JSONSerialization.ReadingOptions, keyPath:String?, response: HTTPURLResponse?, data: Data?, allowInvalidElements: Bool, error: Error?) -> Result<[T]> {
         if let error = error {
             return .failure(error)
         }
@@ -137,7 +137,7 @@ extension Request {
             if let json = result.value as? UnboxableDictionary, let keyPath = keyPath {
                 return .success(try unbox(dictionary: json, atKeyPath: keyPath))
             } else if let json = result.value as? [UnboxableDictionary] {
-                return .success(try unbox(dictionaries: json))
+                return .success(try unbox(dictionaries: json, allowInvalidElements: allowInvalidElements))
             } else {
                 return .failure(UnboxedAlamofireError(description: "Invalid data."))
             }
