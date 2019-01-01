@@ -6,7 +6,7 @@
 //  Copyright © 2016 Serhii Butenko. All rights reserved.
 //
 
-@testable import UnboxedAlamofire
+import UnboxedAlamofire
 import XCTest
 import Alamofire
 
