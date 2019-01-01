@@ -2,6 +2,6 @@ language: objective-c
 osx_image: xcode10.1
 script:
     - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-iOS -destination "platform=iOS Simulator,name=iPhone X,OS=12.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-    - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-macOS -destination "platform=OS X" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-    - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+    - xcodebuild clean build -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-macOS -destination "platform=OS X" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+    - xcodebuild clean build -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
     - xcodebuild clean build -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire-watchOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
