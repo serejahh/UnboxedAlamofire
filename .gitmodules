@@ -1,6 +1,6 @@
 [submodule "Alamofire"]
 	path = Alamofire
-	url = git@github.com:Alamofire/Alamofire.git
+	url = https://github.com/Alamofire/Alamofire.git
 [submodule "Unbox"]
 	path = Unbox
-	url = git@github.com:JohnSundell/Unbox.git
+	url = https://github.com/JohnSundell/Unbox.git
