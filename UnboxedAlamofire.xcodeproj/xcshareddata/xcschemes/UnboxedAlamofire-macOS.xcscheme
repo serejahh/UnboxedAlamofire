@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C5CDBA501D50A61700992A82"
+               BuildableName = "UnboxedAlamofire_macOS_Tests.xctest"
+               BlueprintName = "UnboxedAlamofire_macOS_Tests"
+               ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C5CDBA261D50A5E000992A82"
+            BuildableName = "UnboxedAlamofire.framework"
+            BlueprintName = "UnboxedAlamofire_macOS"
+            ReferencedContainer = "container:UnboxedAlamofire.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
