@@ -1,16 +1,7 @@
 language: objective-c
-osx_image: xcode8
-
-env:
-  global:
-    - LANG=en_US.UTF-8
-    - LC_ALL=en_US.UTF-8
-    - XCODE_WORKSPACE=UnboxedAlamofire.xcodeproj
-  matrix:
-    - SCHEME="UnboxedAlamofire_iOS"
-    - SCHEME="UnboxedAlamofire_OSX"
-    - SCHEME="UnboxedAlamofire_tvOS"    
-
-before_install:
-  - brew install xctool
-  
+osx_image: xcode10.1
+script:
+    - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire_iOS -destination "platform=iOS Simulator,name=iPhone 7,OS=10.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+    - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire_OSX -destination "platform=OS X" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+    - xcodebuild clean test -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire_OSX -destination "platform=tvOS Simulator,name=Apple TV 1080p,OS=10.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+    - xcodebuild clean build -project UnboxedAlamofire.xcodeproj -scheme UnboxedAlamofire_watchOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
