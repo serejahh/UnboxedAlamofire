@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" ~> 4.0
-github "JohnSundell/Unbox" ~> 2.0
+github "Alamofire/Alamofire" ~> 4.8.0
+github "JohnSundell/Unbox" ~> 3.0
