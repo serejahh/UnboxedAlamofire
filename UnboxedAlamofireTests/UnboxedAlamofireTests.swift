@@ -6,7 +6,7 @@
 //  Copyright © 2016 Serhii Butenko. All rights reserved.
 //
 
-@testable import UnboxedAlamofire
+import UnboxedAlamofire
 import XCTest
 import Alamofire
 
@@ -30,7 +30,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
 
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
 
@@ -50,7 +50,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
     
@@ -70,7 +70,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
     
@@ -90,7 +90,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
     
@@ -109,7 +109,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
     
@@ -128,7 +128,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
     
@@ -147,7 +147,7 @@ class UnboxedAlamofireTests: XCTestCase {
         }
         
         waitForExpectations(timeout: timeout) { error in
-            XCTAssertNil(error, "\(error)")
+            XCTAssertNil(error, error!.localizedDescription)
         }
     }
 }
