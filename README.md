@@ -1,5 +1,11 @@
 # UnboxedAlamofire
 
+⚠️ **DEPRECATED**
+
+UnboxedAlamofire is deprecated as well as [Unbox](https://github.com/JohnSundell/Unbox) is deprecated in favor of Swift’s built-in `Codable` API.
+
+-----
+
 [![Build Status](https://travis-ci.org/serejahh/UnboxedAlamofire.svg?branch=master)](https://travis-ci.org/serejahh/UnboxedAlamofire)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/UnboxedAlamofire.svg)](https://img.shields.io/cocoapods/v/UnboxedAlamofire.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
